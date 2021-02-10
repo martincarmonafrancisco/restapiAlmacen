@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # REST API Primeros pasos
 
 
@@ -211,3 +212,6 @@ git commit -m "first commit"
 git branch -M rama001
 git remote add origin https://github.com/sgbdpdv2021/restapitriangulo002.git
 git push -u origin rama001
+=======
+
+>>>>>>> 0aa08446a1b1866f1b4624c36d576c0cee1a34c6
