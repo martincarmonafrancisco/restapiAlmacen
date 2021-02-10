@@ -3,17 +3,18 @@ import {Schema, model } from 'mongoose'
 export class Producto{
     private _nombre: string
     private _precio: number
-    private _tipo: string
     private _cantidad: number
     private _caducidad: Date
+    private _tipo: string
+    
 
-    constructor(_nombre: string, _precio : number, _tipo : string, _cantidad: number, _caducidad : Date
+    constructor(_nombre: string, _precio : number, _cantidad: number, _caducidad : Date, _tipo : string
         ){
         this._nombre = _nombre
         this._precio = _precio
-        this._tipo = _tipo
         this._cantidad = _cantidad
         this._caducidad = _caducidad
+        this._tipo = _tipo
     }
     get nombre(){
         return this._nombre
@@ -23,15 +24,16 @@ export class Producto{
         return this._precio
     }
 
-    get tipo(){
-        return this._tipo
-    }
     get cantidad(){
         return this._cantidad
     }
 
     get caducidad(){
         return this._caducidad
+    }
+
+    get tipo(){
+        return this._tipo
     }
 
     iva(){
@@ -60,7 +62,7 @@ export type tProducto = {
     _tipo: string,
     _cantidad: number,
     _caducidad: Date,
-    _precio_iva: number
+    //_precio_iva: number
 }
 
 // Definimos el Schema
@@ -80,7 +82,7 @@ const productoSchema = new Schema({
     },
     _caducidad: {
         type: Date,
-        min: new Date("2020-11-25")
+        min: new Date()
     }
 })
 export const Productos = model('productos', productoSchema)
