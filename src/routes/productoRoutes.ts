@@ -1,5 +1,5 @@
 import {Request, Response, Router } from 'express'
-import { Productos, Producto, tProducto } from '../model/Producto'
+import { Productos} from '../model/Producto'
 import { db } from '../database/database'
 
 class ProductoRoutes {
@@ -85,7 +85,7 @@ class ProductoRoutes {
         // concatenando con cadena muestra sólo el mensaje
         await db.desconectarBD()
     }  
-    private getiva = async (req: Request, res: Response) => {
+    /*private getiva = async (req: Request, res: Response) => {
         const { nombre } = req.params
         await db.conectarBD()
         .then( async (mensaje) => {
@@ -106,8 +106,8 @@ class ProductoRoutes {
         })
         await db.desconectarBD()
     }
-
-    private getdias = async (req: Request, res: Response) => {
+*/
+    /*private getdias = async (req: Request, res: Response) => {
         const { nombre } = req.params
         await db.conectarBD()
         .then( async (mensaje) => {
@@ -128,7 +128,7 @@ class ProductoRoutes {
         })
         await db.desconectarBD()
     }
-
+*/
     private getDelete = async (req: Request, res: Response) => {
         const {nombre } = req.params
         await db.conectarBD()
@@ -192,8 +192,8 @@ class ProductoRoutes {
         this._router.get('/', this.getProductos)
         this._router.get('/nuevoG/:nombre&:precio&:tipo&:cantidad&:caducidad', this.nuevoProductoGet)
         this._router.post('/nuevoP', this.nuevoProductoPost)
-        this._router.get('/iva/:nombre', this.getiva)
-        this._router.get('/dias/:nombre', this.getdias)
+       // this._router.get('/iva/:nombre', this.getiva)
+        //this._router.get('/dias/:nombre', this.getdias)
         this._router.get('/borrar/:nombre', this.getDelete)
         this._router.post('/actualiza/:nombre', this.actualiza)
     }

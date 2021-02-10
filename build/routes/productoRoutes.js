@@ -81,48 +81,50 @@ class ProductoRoutes {
             // concatenando con cadena muestra sólo el mensaje
             yield database_1.db.desconectarBD();
         });
-        this.getiva = (req, res) => __awaiter(this, void 0, void 0, function* () {
-            const { nombre } = req.params;
-            yield database_1.db.conectarBD()
-                .then((mensaje) => __awaiter(this, void 0, void 0, function* () {
-                console.log(mensaje);
-                const query = yield Producto_1.Productos.findOne({ _nombre: nombre });
-                if (query == null) {
-                    console.log(query);
-                    res.json({});
+        /*private getiva = async (req: Request, res: Response) => {
+            const { nombre } = req.params
+            await db.conectarBD()
+            .then( async (mensaje) => {
+                console.log(mensaje)
+                const query: any = await Productos.findOne({_nombre: nombre})
+                if (query == null){
+                    console.log(query)
+                    res.json({})
+                }else{
+                    const producto = new Producto(query._nombre, query._precio,
+                        query._tipo, query._cantidad, query._caducidad)
+                    res.json({"Nombre": producto.nombre, "Precio sin IVA": producto.precio, "Precio + IVA": producto.iva()})
                 }
-                else {
-                    const producto = new Producto_1.Producto(query._nombre, query._precio, query._tipo, query._cantidad, query._caducidad);
-                    res.json({ "Nombre": producto.nombre, "Precio sin IVA": producto.precio, "Precio + IVA": producto.iva() });
+            })
+            .catch((mensaje) => {
+                res.send(mensaje)
+                console.log(mensaje)
+            })
+            await db.desconectarBD()
+        }
+    */
+        /*private getdias = async (req: Request, res: Response) => {
+            const { nombre } = req.params
+            await db.conectarBD()
+            .then( async (mensaje) => {
+                console.log(mensaje)
+                const query: any = await Productos.findOne({_nombre: nombre})
+                if (query == null){
+                    console.log(query)
+                    res.json({})
+                }else{
+                    const producto = new Producto(query._nombre, query._precio,
+                        query._tipo, query._cantidad, query._caducidad)
+                    res.json({"Nombre": producto.nombre, "Fecha de caducidad": producto.caducidad, "Días restantes hasta caducidad": producto.dias()})
                 }
-            }))
-                .catch((mensaje) => {
-                res.send(mensaje);
-                console.log(mensaje);
-            });
-            yield database_1.db.desconectarBD();
-        });
-        this.getdias = (req, res) => __awaiter(this, void 0, void 0, function* () {
-            const { nombre } = req.params;
-            yield database_1.db.conectarBD()
-                .then((mensaje) => __awaiter(this, void 0, void 0, function* () {
-                console.log(mensaje);
-                const query = yield Producto_1.Productos.findOne({ _nombre: nombre });
-                if (query == null) {
-                    console.log(query);
-                    res.json({});
-                }
-                else {
-                    const producto = new Producto_1.Producto(query._nombre, query._precio, query._tipo, query._cantidad, query._caducidad);
-                    res.json({ "Nombre": producto.nombre, "Fecha de caducidad": producto.caducidad, "Días restantes hasta caducidad": producto.dias() });
-                }
-            }))
-                .catch((mensaje) => {
-                res.send(mensaje);
-                console.log(mensaje);
-            });
-            yield database_1.db.desconectarBD();
-        });
+            })
+            .catch((mensaje) => {
+                res.send(mensaje)
+                console.log(mensaje)
+            })
+            await db.desconectarBD()
+        }
+    */
         this.getDelete = (req, res) => __awaiter(this, void 0, void 0, function* () {
             const { nombre } = req.params;
             yield database_1.db.conectarBD();
@@ -181,8 +183,8 @@ class ProductoRoutes {
         this._router.get('/', this.getProductos);
         this._router.get('/nuevoG/:nombre&:precio&:tipo&:cantidad&:caducidad', this.nuevoProductoGet);
         this._router.post('/nuevoP', this.nuevoProductoPost);
-        this._router.get('/iva/:nombre', this.getiva);
-        this._router.get('/dias/:nombre', this.getdias);
+        // this._router.get('/iva/:nombre', this.getiva)
+        //this._router.get('/dias/:nombre', this.getdias)
         this._router.get('/borrar/:nombre', this.getDelete);
         this._router.post('/actualiza/:nombre', this.actualiza);
     }
