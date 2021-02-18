@@ -47,10 +47,10 @@ class ProductoRoutes {
     }
   */
  private getProducto = async (req: Request, res: Response) => {
-    //const { hol } = req.params
+    const { nombre } = req.params
     await db.conectarBD()
     const p = await Productos.find(
-            { _nombre: "Agua" }
+            { _nombre: nombre }
         )
          // concatenando con cadena muestra mensaje
     await db.desconectarBD()
@@ -224,7 +224,7 @@ class ProductoRoutes {
         //this._router.get('/dias/:nombre', this.getdias)
         this._router.get('/borrar/:nombre', this.getDelete)
         this._router.post('/actualiza/:nombre', this.actualiza)
-        this._router.get('/hola', this.getProducto)
+        this._router.get('/:nombre', this.getProducto)
     }
 }
 

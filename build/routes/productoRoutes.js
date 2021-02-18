@@ -48,9 +48,9 @@ class ProductoRoutes {
         }
       */
         this.getProducto = (req, res) => __awaiter(this, void 0, void 0, function* () {
-            //const { hol } = req.params
+            const { nombre } = req.params;
             yield database_1.db.conectarBD();
-            const p = yield Producto_1.Productos.find({ _nombre: "Agua" });
+            const p = yield Producto_1.Productos.find({ _nombre: nombre });
             // concatenando con cadena muestra mensaje
             yield database_1.db.desconectarBD();
             res.json(p);
@@ -213,7 +213,7 @@ class ProductoRoutes {
         //this._router.get('/dias/:nombre', this.getdias)
         this._router.get('/borrar/:nombre', this.getDelete);
         this._router.post('/actualiza/:nombre', this.actualiza);
-        this._router.get('/hola', this.getProducto);
+        this._router.get('/:nombre', this.getProducto);
     }
 }
 const obj = new ProductoRoutes();
