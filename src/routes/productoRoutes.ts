@@ -49,11 +49,12 @@ class ProductoRoutes {
  private getProducto = async (req: Request, res: Response) => {
     const { _nombre } = req.params
     await db.conectarBD()
-    await Productos.find(
+    const p = await Productos.find(
             { _nombre: _nombre },
         )
          // concatenando con cadena muestra mensaje
     await db.desconectarBD()
+    res.json(p)
 }
 
     private nuevoProductoPost = async (req: Request, res: Response) => {
