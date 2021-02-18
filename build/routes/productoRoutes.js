@@ -29,6 +29,32 @@ class ProductoRoutes {
             });
             yield database_1.db.desconectarBD();
         });
+        /*private getProducto = async (req: Request, res: Response) => {
+            const { nombre } = req.params
+            const {precio, tipo, cantidad, caducidad } = req.body
+            await db.conectarBD()
+            await Productos.find(
+                    { _nombre: nombre },
+                    {
+                        _nombre: nombre,
+                        _precio: precio,
+                        _tipo: tipo,
+                        _cantidad: cantidad,
+                        _caducidad: caducidad
+                    },
+                )
+                 // concatenando con cadena muestra mensaje
+            await db.desconectarBD()
+        }
+      */
+        this.getProducto = (req, res) => __awaiter(this, void 0, void 0, function* () {
+            //const { hol } = req.params
+            yield database_1.db.conectarBD();
+            const p = yield Producto_1.Productos.find({ _nombre: "Agua" });
+            // concatenando con cadena muestra mensaje
+            yield database_1.db.desconectarBD();
+            res.json(p);
+        });
         this.nuevoProductoPost = (req, res) => __awaiter(this, void 0, void 0, function* () {
             console.log(req.body);
             // Observar la diferencia entre req.body (para POST) 
@@ -187,6 +213,7 @@ class ProductoRoutes {
         //this._router.get('/dias/:nombre', this.getdias)
         this._router.get('/borrar/:nombre', this.getDelete);
         this._router.post('/actualiza/:nombre', this.actualiza);
+        this._router.get('/hola', this.getProducto);
     }
 }
 const obj = new ProductoRoutes();

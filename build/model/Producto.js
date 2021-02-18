@@ -4,6 +4,7 @@ exports.Productos = void 0;
 const mongoose_1 = require("mongoose");
 // Definimos el Schema
 const productoSchema = new mongoose_1.Schema({
+    _id: String,
     _nombre: String,
     _precio: Number,
     _tipo: String,
