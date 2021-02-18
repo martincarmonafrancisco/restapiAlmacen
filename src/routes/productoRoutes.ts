@@ -28,7 +28,7 @@ class ProductoRoutes {
         await db.desconectarBD()
     }
 
-    private getProducto = async (req: Request, res: Response) => {
+    /*private getProducto = async (req: Request, res: Response) => {
         const { nombre } = req.params
         const {precio, tipo, cantidad, caducidad } = req.body
         await db.conectarBD()
@@ -45,7 +45,16 @@ class ProductoRoutes {
              // concatenando con cadena muestra mensaje
         await db.desconectarBD()
     }
-  
+  */
+ private getProducto = async (req: Request, res: Response) => {
+    const { nombre } = req.params
+    await db.conectarBD()
+    await Productos.find(
+            { _nombre: nombre },
+        )
+         // concatenando con cadena muestra mensaje
+    await db.desconectarBD()
+}
 
     private nuevoProductoPost = async (req: Request, res: Response) => {
         console.log(req.body)
@@ -212,7 +221,7 @@ class ProductoRoutes {
         this._router.post('/nuevoP', this.nuevoProductoPost)
        // this._router.get('/iva/:nombre', this.getiva)
         //this._router.get('/dias/:nombre', this.getdias)
-        this._router.get('/borrar', this.getDelete)
+        this._router.get('/borrar/:nombre', this.getDelete)
         this._router.post('/actualiza/:nombre', this.actualiza)
         this._router.get('/:nombre', this.getProducto)
     }
