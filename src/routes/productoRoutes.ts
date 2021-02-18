@@ -160,7 +160,7 @@ class ProductoRoutes {
     private getDelete = async (req: Request, res: Response) => {
         const {nombre } = req.params
         await db.conectarBD()
-        await Productos.findOneAndDelete(
+        const p = await Productos.findOneAndDelete(
             { _nombre: nombre }, 
             (err: any, doc) => {
                 if(err) console.log(err)
@@ -175,6 +175,7 @@ class ProductoRoutes {
                 }
             })
         await db.desconectarBD()
+        res.json(p)
     }
     
     private actualiza = async (req: Request, res: Response) => {

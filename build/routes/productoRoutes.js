@@ -154,7 +154,7 @@ class ProductoRoutes {
         this.getDelete = (req, res) => __awaiter(this, void 0, void 0, function* () {
             const { nombre } = req.params;
             yield database_1.db.conectarBD();
-            yield Producto_1.Productos.findOneAndDelete({ _nombre: nombre }, (err, doc) => {
+            const p = yield Producto_1.Productos.findOneAndDelete({ _nombre: nombre }, (err, doc) => {
                 if (err)
                     console.log(err);
                 else {
@@ -169,6 +169,7 @@ class ProductoRoutes {
                 }
             });
             yield database_1.db.desconectarBD();
+            res.json(p);
         });
         this.actualiza = (req, res) => __awaiter(this, void 0, void 0, function* () {
             const { nombre } = req.params;
