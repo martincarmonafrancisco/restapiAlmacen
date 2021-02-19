@@ -12,4 +12,15 @@ const productoSchema = new Schema({
 {
     collection:'productos'
 })
+const supermercadoSchema = new Schema({
+    _id: String,
+    _nombre: String,
+    _direccion: String,
+    _numtelefono: Number,
+    _productos: Array
+},
+{
+    collection:'supermercados'
+})
+export const Supermercados = model ('supermercados', supermercadoSchema)
 export const Productos = model('productos', productoSchema)

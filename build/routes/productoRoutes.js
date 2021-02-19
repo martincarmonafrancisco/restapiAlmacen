@@ -12,6 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.productoRoutes = void 0;
 const express_1 = require("express");
 const Producto_1 = require("../model/Producto");
+const Producto_2 = require("../model/Producto");
 const database_1 = require("../database/database");
 class ProductoRoutes {
     constructor() {
@@ -202,6 +203,35 @@ class ProductoRoutes {
             }); // concatenando con cadena muestra mensaje
             yield database_1.db.desconectarBD();
         });
+        //RUTAS DE SUPERMERCADO
+        this.nuevoSupermercadoPost = (req, res) => __awaiter(this, void 0, void 0, function* () {
+            console.log(req.body);
+            // Observar la diferencia entre req.body (para POST) 
+            // y req.params (para GET con los parámetros en la URL
+            const { id, nombre, direccion, numtelefono, productos } = req.body;
+            console.log(nombre);
+            const dSchema = {
+                _id: id,
+                _nombre: nombre,
+                _direccion: direccion,
+                _numtelefono: parseInt(numtelefono),
+                _productos: productos,
+            };
+            console.log(dSchema);
+            const oSchema = new Producto_2.Supermercados(dSchema);
+            yield database_1.db.conectarBD();
+            yield oSchema.save()
+                .then((doc) => {
+                console.log('Salvado Correctamente: ' + doc);
+                res.json(doc);
+            })
+                .catch((err) => {
+                console.log('Error: ' + err);
+                res.send('Error: ' + err);
+            });
+            // concatenando con cadena muestra sólo el mensaje
+            yield database_1.db.desconectarBD();
+        });
         this._router = express_1.Router();
     }
     get router() {
@@ -209,8 +239,10 @@ class ProductoRoutes {
     }
     misRutas() {
         this._router.get('/', this.getProductos);
+        //this._router.get('/', this.getSupermercados)
         this._router.get('/nuevoG/:nombre&:precio&:tipo&:cantidad&:caducidad', this.nuevoProductoGet);
         this._router.post('/nuevoP', this.nuevoProductoPost);
+        this._router.post('/nuevoS', this.nuevoSupermercadoPost);
         // this._router.get('/iva/:nombre', this.getiva)
         //this._router.get('/dias/:nombre', this.getdias)
         this._router.get('/borrar/:nombre', this.getDelete);

@@ -37,5 +37,3 @@ class DataBase {
 }
 
 export const db = new DataBase()
-
-

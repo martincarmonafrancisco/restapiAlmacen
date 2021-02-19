@@ -1,5 +1,6 @@
 import {Request, Response, Router } from 'express'
 import { Productos} from '../model/Producto'
+import {Supermercados} from '../model/Producto'
 import { db } from '../database/database'
 import { identificacionRoutes } from './identificacionRoutes'
 
@@ -217,12 +218,46 @@ class ProductoRoutes {
         await db.desconectarBD()
     }
 
+    //RUTAS DE SUPERMERCADO
+    private nuevoSupermercadoPost = async (req: Request, res: Response) => {
+        console.log(req.body)
+        // Observar la diferencia entre req.body (para POST) 
+        // y req.params (para GET con los parámetros en la URL
+        const { id, nombre, direccion, numtelefono, productos} = req.body
+
+        console.log(nombre)
+
+        const dSchema = {
+            _id: id,
+            _nombre: nombre,
+            _direccion: direccion,
+            _numtelefono: parseInt(numtelefono),
+            _productos: productos,
+        }
+        console.log(dSchema)
+        const oSchema = new Supermercados(dSchema)
+        await db.conectarBD()
+        await oSchema.save()
+        .then( (doc) => {
+            console.log('Salvado Correctamente: '+ doc)
+            res.json(doc)
+        })
+        .catch( (err: any) => {
+            console.log('Error: '+ err)
+            res.send('Error: '+ err)
+        }) 
+        // concatenando con cadena muestra sólo el mensaje
+        await db.desconectarBD()
+    }         
+
 
 
     misRutas(){
         this._router.get('/', this.getProductos)
+        //this._router.get('/', this.getSupermercados)
         this._router.get('/nuevoG/:nombre&:precio&:tipo&:cantidad&:caducidad', this.nuevoProductoGet)
         this._router.post('/nuevoP', this.nuevoProductoPost)
+        this._router.post('/nuevoS', this.nuevoSupermercadoPost)
        // this._router.get('/iva/:nombre', this.getiva)
         //this._router.get('/dias/:nombre', this.getdias)
         this._router.get('/borrar/:nombre', this.getDelete)
