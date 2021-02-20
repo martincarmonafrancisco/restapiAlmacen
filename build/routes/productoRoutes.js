@@ -228,8 +228,8 @@ class ProductoRoutes {
                     {
                         $lookup: {
                             from: 'productos',
-                            localField: 'nombre',
-                            foreignField: 'supermercado',
+                            localField: '_nombre',
+                            foreignField: '_supermercado',
                             as: "productos"
                         }
                     }

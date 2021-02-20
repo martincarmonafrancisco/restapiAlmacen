@@ -243,8 +243,8 @@ private getSupermercados = async (req:Request, res: Response) => {
             {
                 $lookup: {
                     from: 'productos',
-                    localField: 'nombre',
-                    foreignField: 'supermercado',
+                    localField: '_nombre',
+                    foreignField: '_supermercado',
                     as: "productos"
                 }
             }
