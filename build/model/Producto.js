@@ -18,7 +18,6 @@ const supermercadoSchema = new mongoose_1.Schema({
     _nombre: String,
     _direccion: String,
     _numtelefono: Number,
-    _productos: Array
 }, {
     collection: 'supermercados'
 });

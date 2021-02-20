@@ -241,7 +241,7 @@ class ProductoRoutes {
         //this._router.get('/', this.getSupermercados)
         this._router.get('/nuevoG/:nombre&:precio&:tipo&:cantidad&:caducidad', this.nuevoProductoGet);
         this._router.post('/nuevoP', this.nuevoProductoPost);
-        this._router.post('/supermercado/nuevoS', this.nuevoSupermercadoPost);
+        this._router.post('/nuevoS', this.nuevoSupermercadoPost);
         // this._router.get('/iva/:nombre', this.getiva)
         //this._router.get('/dias/:nombre', this.getdias)
         this._router.get('/borrar/:nombre', this.getDelete);

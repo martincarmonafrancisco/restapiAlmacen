@@ -17,7 +17,7 @@ const supermercadoSchema = new Schema({
     _nombre: String,
     _direccion: String,
     _numtelefono: Number,
-    _productos: Array
+   // _productos: Array
 },
 {
     collection:'supermercados'
