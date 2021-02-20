@@ -205,17 +205,39 @@ class ProductoRoutes {
             yield database_1.db.desconectarBD();
         });
         //RUTAS DE SUPERMERCADO
+        /* private getSupermercados = async (req: Request, res: Response) => {
+             await db.conectarBD()
+             .then( async (mensaje) => {
+                 console.log(mensaje)
+                 const query:any  = await Supermercados.find({})
+                 console.log(query)
+                 res.json(query)
+             })
+             .catch((mensaje) => {
+                 res.send(mensaje)
+                 console.log(mensaje)
+             })
+     
+             await db.desconectarBD()
+         }
+     */
         this.getSupermercados = (req, res) => __awaiter(this, void 0, void 0, function* () {
             yield database_1.db.conectarBD()
-                .then((mensaje) => __awaiter(this, void 0, void 0, function* () {
-                console.log(mensaje);
-                const query = yield Producto_2.Supermercados.find({});
-                console.log(query);
+                .then(() => __awaiter(this, void 0, void 0, function* () {
+                const query = yield Producto_2.Supermercados.aggregate([
+                    {
+                        $lookup: {
+                            from: 'productos',
+                            localField: 'nombre',
+                            foreignField: 'supermercado',
+                            as: "productos"
+                        }
+                    }
+                ]);
                 res.json(query);
             }))
                 .catch((mensaje) => {
                 res.send(mensaje);
-                console.log(mensaje);
             });
             yield database_1.db.desconectarBD();
         });

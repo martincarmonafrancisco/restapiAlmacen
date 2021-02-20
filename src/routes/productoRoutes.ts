@@ -220,7 +220,7 @@ class ProductoRoutes {
     }
 
     //RUTAS DE SUPERMERCADO
-    private getSupermercados = async (req: Request, res: Response) => {
+   /* private getSupermercados = async (req: Request, res: Response) => {
         await db.conectarBD()
         .then( async (mensaje) => {
             console.log(mensaje)
@@ -235,6 +235,27 @@ class ProductoRoutes {
 
         await db.desconectarBD()
     }
+*/
+private getSupermercados = async (req:Request, res: Response) => {
+    await db.conectarBD()
+    .then( async ()=> {
+        const query = await Supermercados.aggregate([
+            {
+                $lookup: {
+                    from: 'productos',
+                    localField: 'nombre',
+                    foreignField: 'supermercado',
+                    as: "productos"
+                }
+            }
+        ])
+        res.json(query)
+    })
+    .catch((mensaje) => {
+        res.send(mensaje)
+    })
+    await db.desconectarBD()
+}
 
     private getSupermercado = async (req: Request, res: Response) => {
         const { nombre } = req.params
