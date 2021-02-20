@@ -8,6 +8,7 @@ const productoSchema = new Schema({
     _tipo: String,
     _cantidad: Number,
     _caducidad: Date,
+    _supermercado: String
 },
 {
     collection:'productos'
