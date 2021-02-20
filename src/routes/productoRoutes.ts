@@ -63,7 +63,7 @@ class ProductoRoutes {
         console.log(req.body)
         // Observar la diferencia entre req.body (para POST) 
         // y req.params (para GET con los parámetros en la URL
-        const { id, nombre, precio, tipo, cantidad, caducidad } = req.body
+        const { id, nombre, precio, tipo, cantidad, caducidad, supermercado } = req.body
 
         console.log(nombre)
 
@@ -73,7 +73,8 @@ class ProductoRoutes {
             _precio: parseInt(precio),
             _tipo: tipo,
             _cantidad: parseInt(cantidad),
-            _caducidad: new Date(caducidad)
+            _caducidad: new Date(caducidad),
+            _supermercado: supermercado
         }
         console.log(dSchema)
         const oSchema = new Productos(dSchema)
