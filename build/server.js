@@ -39,6 +39,7 @@ class Server {
     }
     routes() {
         this.app.use('/producto', productoRoutes_1.productoRoutes);
+        this.app.use('/supermercado', productoRoutes_1.productoRoutes);
         this.app.use('/id', identificacionRoutes_1.identificacionRoutes);
     }
     start() {
