@@ -261,7 +261,7 @@ class ProductoRoutes {
     }
     misRutas() {
         this._router.get('/', this.getProductos);
-        this._router.get('/', this.getSupermercados);
+        this._router.get('/supermercados', this.getSupermercados);
         //this._router.get('/', this.getSupermercados)
         this._router.get('/nuevoG/:nombre&:precio&:tipo&:cantidad&:caducidad', this.nuevoProductoGet);
         this._router.post('/nuevoP', this.nuevoProductoPost);
