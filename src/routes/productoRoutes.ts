@@ -223,7 +223,7 @@ class ProductoRoutes {
         console.log(req.body)
         // Observar la diferencia entre req.body (para POST) 
         // y req.params (para GET con los parámetros en la URL
-        const { id, nombre, direccion, numtelefono/*, productos*/} = req.body
+        const { id, nombre, direccion, numtelefono, municipio/*, productos*/} = req.body
 
         console.log(nombre)
 
@@ -232,6 +232,7 @@ class ProductoRoutes {
             _nombre: nombre,
             _direccion: direccion,
             _numtelefono: parseInt(numtelefono),
+            _municipio: municipio,
            // _productos: productos,
         }
         console.log(dSchema)

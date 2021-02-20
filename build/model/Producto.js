@@ -16,6 +16,7 @@ const productoSchema = new mongoose_1.Schema({
 const supermercadoSchema = new mongoose_1.Schema({
     _id: String,
     _nombre: String,
+    _municipio: String,
     _direccion: String,
     _numtelefono: Number,
 }, {

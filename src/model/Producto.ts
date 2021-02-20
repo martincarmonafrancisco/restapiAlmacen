@@ -15,6 +15,7 @@ const productoSchema = new Schema({
 const supermercadoSchema = new Schema({
     _id: String,
     _nombre: String,
+    _municipio: String,
     _direccion: String,
     _numtelefono: Number,
    // _productos: Array
