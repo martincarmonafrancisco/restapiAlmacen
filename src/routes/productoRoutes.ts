@@ -219,6 +219,33 @@ class ProductoRoutes {
     }
 
     //RUTAS DE SUPERMERCADO
+    private getSupermercados = async (req: Request, res: Response) => {
+        await db.conectarBD()
+        .then( async (mensaje) => {
+            console.log(mensaje)
+            const query:any  = await Supermercados.find({})
+            console.log(query)
+            res.json(query)
+        })
+        .catch((mensaje) => {
+            res.send(mensaje)
+            console.log(mensaje)
+        })
+
+        await db.desconectarBD()
+    }
+
+    private getSupermercado = async (req: Request, res: Response) => {
+        const { nombre } = req.params
+        await db.conectarBD()
+        const p = await Supermercados.find(
+                { _nombre: nombre }
+            )
+             // concatenando con cadena muestra mensaje
+        await db.desconectarBD()
+        res.json(p)
+    }
+
     private nuevoSupermercadoPost = async (req: Request, res: Response) => {
         console.log(req.body)
         // Observar la diferencia entre req.body (para POST) 
@@ -255,6 +282,7 @@ class ProductoRoutes {
 
     misRutas(){
         this._router.get('/', this.getProductos)
+        this._router.get('/', this.getSupermercados)
         //this._router.get('/', this.getSupermercados)
         this._router.get('/nuevoG/:nombre&:precio&:tipo&:cantidad&:caducidad', this.nuevoProductoGet)
         this._router.post('/nuevoP', this.nuevoProductoPost)
@@ -264,6 +292,7 @@ class ProductoRoutes {
         this._router.get('/borrar/:nombre', this.getDelete)
         this._router.post('/actualiza/:nombre', this.actualiza)
         this._router.get('/:nombre', this.getProducto)
+        this._router.get('/:nombre', this.getSupermercado)
     }
 }
 

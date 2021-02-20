@@ -204,6 +204,28 @@ class ProductoRoutes {
             yield database_1.db.desconectarBD();
         });
         //RUTAS DE SUPERMERCADO
+        this.getSupermercados = (req, res) => __awaiter(this, void 0, void 0, function* () {
+            yield database_1.db.conectarBD()
+                .then((mensaje) => __awaiter(this, void 0, void 0, function* () {
+                console.log(mensaje);
+                const query = yield Producto_2.Supermercados.find({});
+                console.log(query);
+                res.json(query);
+            }))
+                .catch((mensaje) => {
+                res.send(mensaje);
+                console.log(mensaje);
+            });
+            yield database_1.db.desconectarBD();
+        });
+        this.getSupermercado = (req, res) => __awaiter(this, void 0, void 0, function* () {
+            const { nombre } = req.params;
+            yield database_1.db.conectarBD();
+            const p = yield Producto_2.Supermercados.find({ _nombre: nombre });
+            // concatenando con cadena muestra mensaje
+            yield database_1.db.desconectarBD();
+            res.json(p);
+        });
         this.nuevoSupermercadoPost = (req, res) => __awaiter(this, void 0, void 0, function* () {
             console.log(req.body);
             // Observar la diferencia entre req.body (para POST) 
@@ -239,6 +261,7 @@ class ProductoRoutes {
     }
     misRutas() {
         this._router.get('/', this.getProductos);
+        this._router.get('/', this.getSupermercados);
         //this._router.get('/', this.getSupermercados)
         this._router.get('/nuevoG/:nombre&:precio&:tipo&:cantidad&:caducidad', this.nuevoProductoGet);
         this._router.post('/nuevoP', this.nuevoProductoPost);
@@ -248,6 +271,7 @@ class ProductoRoutes {
         this._router.get('/borrar/:nombre', this.getDelete);
         this._router.post('/actualiza/:nombre', this.actualiza);
         this._router.get('/:nombre', this.getProducto);
+        this._router.get('/:nombre', this.getSupermercado);
     }
 }
 const obj = new ProductoRoutes();
