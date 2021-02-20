@@ -277,6 +277,36 @@ class ProductoRoutes {
             // concatenando con cadena muestra sólo el mensaje
             yield database_1.db.desconectarBD();
         });
+        this.updateSupermercado = (req, res) => __awaiter(this, void 0, void 0, function* () {
+            const { nombre } = req.params;
+            const { id, direccion, numtelefono, municipio /*, productos*/ } = req.body;
+            yield database_1.db.conectarBD();
+            yield Producto_2.Supermercados.findOneAndUpdate({ _nombre: nombre }, {
+                _nombre: nombre,
+                _id: id,
+                _direccion: direccion,
+                numtelefono: numtelefono,
+                _municipio: municipio
+            }, {
+                new: true,
+                runValidators: true // para que se ejecuten las validaciones del Schema
+            })
+                .then((docu) => {
+                if (docu == null) {
+                    console.log('El supermercado que desea modificar no existe');
+                    res.json({ "Error": "No existe: " + nombre });
+                }
+                else {
+                    console.log('Modificado Correctamente: ' + docu);
+                    res.json(docu);
+                }
+            })
+                .catch((err) => {
+                console.log('Error: ' + err);
+                res.json({ error: 'Error: ' + err });
+            }); // concatenando con cadena muestra mensaje
+            yield database_1.db.desconectarBD();
+        });
         this._router = express_1.Router();
     }
     get router() {
@@ -286,13 +316,14 @@ class ProductoRoutes {
         this._router.get('/', this.getProductos);
         this._router.get('/supermercados', this.getSupermercados);
         //this._router.get('/', this.getSupermercados)
-        this._router.get('/nuevoG/:nombre&:precio&:tipo&:cantidad&:caducidad', this.nuevoProductoGet);
+        //this._router.get('/nuevoG/:nombre&:precio&:tipo&:cantidad&:caducidad', this.nuevoProductoGet)
         this._router.post('/nuevoP', this.nuevoProductoPost);
         this._router.post('/nuevoS', this.nuevoSupermercadoPost);
         // this._router.get('/iva/:nombre', this.getiva)
         //this._router.get('/dias/:nombre', this.getdias)
         this._router.get('/borrar/:nombre', this.getDelete);
         this._router.post('/actualiza/:nombre', this.actualiza);
+        this._router.post('/supermercados/actualiza/:nombre', this.updateSupermercado);
         this._router.get('/:nombre', this.getProducto);
         this._router.get('/supermercados/:nombre', this.getSupermercado);
     }
