@@ -384,7 +384,7 @@ private getDeleteSupermercado = async (req: Request, res: Response) => {
        // this._router.get('/iva/:nombre', this.getiva)
         //this._router.get('/dias/:nombre', this.getdias)
         this._router.get('/borrar/:nombre', this.getDelete)
-        this._router.get('supermercados/borrar/:nombre', this.getDeleteSupermercado)
+        this._router.get('/supermercados/borrar/:nombre', this.getDeleteSupermercado)
         this._router.post('/actualiza/:nombre', this.actualiza)
         this._router.post('/supermercados/actualiza/:nombre', this.updateSupermercado)
         this._router.get('/:nombre', this.getProducto)
