@@ -267,6 +267,26 @@ class ProductoRoutes {
             });
             yield database_1.db.desconectarBD();
         });
+        this.getDeleteSupermercado = (req, res) => __awaiter(this, void 0, void 0, function* () {
+            const { nombre } = req.params;
+            yield database_1.db.conectarBD();
+            const p = yield Producto_2.Supermercados.findOneAndDelete({ _nombre: nombre }, (err, doc) => {
+                if (err)
+                    console.log(err);
+                else {
+                    if (doc == null) {
+                        console.log(`No encontrado`);
+                        res.send(`No encontrado`);
+                    }
+                    else {
+                        console.log('Borrado correcto: ' + doc);
+                        res.send('Borrado correcto: ' + doc);
+                    }
+                }
+            });
+            yield database_1.db.desconectarBD();
+            res.json(p);
+        });
         this.nuevoSupermercadoPost = (req, res) => __awaiter(this, void 0, void 0, function* () {
             console.log(req.body);
             // Observar la diferencia entre req.body (para POST) 
@@ -340,6 +360,7 @@ class ProductoRoutes {
         // this._router.get('/iva/:nombre', this.getiva)
         //this._router.get('/dias/:nombre', this.getdias)
         this._router.get('/borrar/:nombre', this.getDelete);
+        this._router.get('supermercados/borrar/:nombre', this.getDeleteSupermercado);
         this._router.post('/actualiza/:nombre', this.actualiza);
         this._router.post('/supermercados/actualiza/:nombre', this.updateSupermercado);
         this._router.get('/:nombre', this.getProducto);

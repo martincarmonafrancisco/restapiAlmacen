@@ -162,7 +162,7 @@ class ProductoRoutes {
     }
 */
     private getDelete = async (req: Request, res: Response) => {
-        const {nombre } = req.params
+        const {nombre} = req.params
         await db.conectarBD()
         const p = await Productos.findOneAndDelete(
             { _nombre: nombre }, 
@@ -284,6 +284,26 @@ private getSupermercado = async (req:Request, res: Response) => {
     await db.desconectarBD()
 }
 
+private getDeleteSupermercado = async (req: Request, res: Response) => {
+    const {nombre} = req.params
+    await db.conectarBD()
+    const p = await Supermercados.findOneAndDelete(
+        { _nombre: nombre }, 
+        (err: any, doc) => {
+            if(err) console.log(err)
+            else{
+                if (doc == null) {
+                    console.log(`No encontrado`)
+                    res.send(`No encontrado`)
+                }else {
+                    console.log('Borrado correcto: '+ doc)
+                    res.send('Borrado correcto: '+ doc)
+                }
+            }
+        })
+    await db.desconectarBD()
+    res.json(p)
+}
     private nuevoSupermercadoPost = async (req: Request, res: Response) => {
         console.log(req.body)
         // Observar la diferencia entre req.body (para POST) 
@@ -364,6 +384,7 @@ private getSupermercado = async (req:Request, res: Response) => {
        // this._router.get('/iva/:nombre', this.getiva)
         //this._router.get('/dias/:nombre', this.getdias)
         this._router.get('/borrar/:nombre', this.getDelete)
+        this._router.get('supermercados/borrar/:nombre', this.getDeleteSupermercado)
         this._router.post('/actualiza/:nombre', this.actualiza)
         this._router.post('/supermercados/actualiza/:nombre', this.updateSupermercado)
         this._router.get('/:nombre', this.getProducto)
