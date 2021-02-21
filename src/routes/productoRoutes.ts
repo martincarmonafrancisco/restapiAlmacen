@@ -272,7 +272,7 @@ private getSupermercado = async (req:Request, res: Response) => {
                 }
             },{
                 $match: {
-                    _nombre: nombre
+                    nombre: nombre
                 }
             }
         ])
