@@ -258,16 +258,31 @@ private getSupermercados = async (req:Request, res: Response) => {
     await db.desconectarBD()
 }
 
-    private getSupermercado = async (req: Request, res: Response) => {
-        const { nombre } = req.params
-        await db.conectarBD()
-        const p = await Supermercados.find(
-                { _nombre: nombre }
-            )
-             // concatenando con cadena muestra mensaje
-        await db.desconectarBD()
-        res.json(p)
-    }
+private getSupermercado = async (req:Request, res: Response) => {
+    const { nombre } = req.params
+    await db.conectarBD()
+    .then( async ()=> {
+        const query = await Supermercados.aggregate([
+            {
+                $lookup: {
+                    from: 'productos',
+                    localField: '_nombre',
+                    foreignField: '_supermercado',
+                    as: "productos"
+                }
+            },{
+                $match: {
+                    _nombre: nombre
+                }
+            }
+        ])
+        res.json(query)
+    })
+    .catch((mensaje) => {
+        res.send(mensaje)
+    })
+    await db.desconectarBD()
+}
 
     private nuevoSupermercadoPost = async (req: Request, res: Response) => {
         console.log(req.body)

@@ -244,11 +244,28 @@ class ProductoRoutes {
         });
         this.getSupermercado = (req, res) => __awaiter(this, void 0, void 0, function* () {
             const { nombre } = req.params;
-            yield database_1.db.conectarBD();
-            const p = yield Producto_2.Supermercados.find({ _nombre: nombre });
-            // concatenando con cadena muestra mensaje
+            yield database_1.db.conectarBD()
+                .then(() => __awaiter(this, void 0, void 0, function* () {
+                const query = yield Producto_2.Supermercados.aggregate([
+                    {
+                        $lookup: {
+                            from: 'productos',
+                            localField: '_nombre',
+                            foreignField: '_supermercado',
+                            as: "productos"
+                        }
+                    }, {
+                        $match: {
+                            _nombre: nombre
+                        }
+                    }
+                ]);
+                res.json(query);
+            }))
+                .catch((mensaje) => {
+                res.send(mensaje);
+            });
             yield database_1.db.desconectarBD();
-            res.json(p);
         });
         this.nuevoSupermercadoPost = (req, res) => __awaiter(this, void 0, void 0, function* () {
             console.log(req.body);
