@@ -256,7 +256,7 @@ class ProductoRoutes {
                         }
                     }, {
                         $match: {
-                            nombre: nombre
+                            _nombre: nombre
                         }
                     }
                 ]);
