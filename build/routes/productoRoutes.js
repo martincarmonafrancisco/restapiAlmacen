@@ -176,14 +176,15 @@ class ProductoRoutes {
         });
         this.actualiza = (req, res) => __awaiter(this, void 0, void 0, function* () {
             const { nombre } = req.params;
-            const { precio, tipo, cantidad, caducidad } = req.body;
+            const { precio, tipo, cantidad, caducidad, supermercado } = req.body;
             yield database_1.db.conectarBD();
             yield Producto_1.Productos.findOneAndUpdate({ _nombre: nombre }, {
                 _nombre: nombre,
                 _precio: precio,
                 _tipo: tipo,
                 _cantidad: cantidad,
-                _caducidad: caducidad
+                _caducidad: caducidad,
+                _supermercado: supermercado
             }, {
                 new: true,
                 runValidators: true // para que se ejecuten las validaciones del Schema

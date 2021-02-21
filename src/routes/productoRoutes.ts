@@ -184,7 +184,7 @@ class ProductoRoutes {
     
     private actualiza = async (req: Request, res: Response) => {
         const { nombre } = req.params
-        const {precio, tipo, cantidad, caducidad } = req.body
+        const {precio, tipo, cantidad, caducidad, supermercado } = req.body
         await db.conectarBD()
         await Productos.findOneAndUpdate(
                 { _nombre: nombre }, 
@@ -193,7 +193,8 @@ class ProductoRoutes {
                     _precio: precio,
                     _tipo: tipo,
                     _cantidad: cantidad,
-                    _caducidad: caducidad
+                    _caducidad: caducidad,
+                    _supermercado: supermercado
                 },
                 {
                     new: true,
